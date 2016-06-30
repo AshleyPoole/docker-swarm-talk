@@ -2,47 +2,51 @@
 
 <html>
     <head>
-        <title>Pacman</title>
-        <style type="text/css">
-            font-face {
-            font-family: 'BDCartoonShoutRegular';
-            src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            }
-            #pacman {
-                height:450px;
-                width:342px;
-                margin:20px auto;
-            }
-            #shim { 
-                font-family: BDCartoonShoutRegular; 
-                position:absolute;
-                visibility:hidden
-            }
-            body { width:342px; margin:0px auto; font-family:sans-serif; }
-            a { text-decoration:none; }
-        </style>
+        <title>Clumsy Bird</title>
+        <link rel="stylesheet" type="text/css" href="addtohomescreen.css">
+        <script src="js/addtohomescreen.min.js"></script>
     </head>
     <body>
-        <h1 align="center">Pacman</h1>
-        <h2 align="center">Hosted by Docker and served by .NET Core</h2>
+        <h1 align="center">Clumpsy Bird</h1>
+        <h2 align="center">Hosted by Docker and served by .NET Core / Kestrel</h2>
  
-        <div id="pacman"></div>
-        <script src="pacman.js"></script>
-        <script src="modernizr-1.5.min.js"></script>
-
+        <div id="fb-root"></div>
         <script>
+            addToHomescreen();
+        </script>
 
-            var el = document.getElementById("pacman");
+        <!-- Canvas placeholder -->
+        <div id="screen" align="center"></div>
 
-            if (Modernizr.canvas && Modernizr.localstorage && 
-                Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
-            window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
-            } else { 
-            el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
-                "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+        <!-- melonJS Library -->
+        <script type="text/javascript" src="js/melonJS-2.1.1-min.js"></script>
+        <script type="text/javascript" src="js/debugPanel.js" ></script>
+        <script type="text/javascript" src="build/clumsy-min.js" ></script>
+        <!-- Bootstrap & Mobile optimization tricks -->
+        <script type="text/javascript">
+        window.onReady(function onReady() {
+
+            game.onload();
+            // Mobile browser hacks
+            if (me.device.isMobile && !navigator.isCocoonJS) {
+            // Prevent the webview from moving on a swipe
+            window.document.addEventListener("touchmove", function (e) {
+                e.preventDefault();
+                window.scroll(0, 0);
+                return false;
+            }, false);
+
+            // Scroll away mobile GUI
+            (function () {
+                window.scrollTo(0, 1);
+                me.video.onresize(null);
+            }).defer();
+
+            me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+                window.scrollTo(0, 1);
+            });
             }
+        });
         </script>
 
         <h4 align="center">@("Served by machine: " + Model.MachineName)</h4>
