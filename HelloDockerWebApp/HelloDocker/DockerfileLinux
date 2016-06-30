@@ -1,0 +1,13 @@
+# This is a Linux (Debian 8 'Jessie') image
+FROM microsoft/dotnet:onbuild
+
+EXPOSE 5000
+
+# By using the 'onbuild' image this automatically does:
+# - Copy
+# - dotnet restore
+# - dotnet run entrypoint
+
+# https://hub.docker.com/r/microsoft/dotnet/
+
+

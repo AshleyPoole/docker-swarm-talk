@@ -1,0 +1,11 @@
+# This is a Windows (Server 2016 Core) image
+FROM microsoft/dotnet:windowsservercore-onbuild
+
+EXPOSE 5000
+
+# By using the 'onbuild' image this automatically does the following tasks:
+# - Copy
+# - dotnet restore
+# - dotnet run entrypoint
+
+# https://hub.docker.com/r/microsoft/dotnet/
